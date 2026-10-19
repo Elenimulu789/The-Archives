@@ -8,12 +8,9 @@ I used ChatGPT throughout the project for setup guidance, explanations, architec
 
 These are exact prompts I submitted during the conversation. The short follow-up prompts refer to the project requirements and instructions already discussed.
 
-1. `tell me step by step how to start this assignment`
-2. `ok it's open`
-3. `ok nice i see it now`
-4. `can you just give me stuff to copy and paste thanks`
-5. `ok next step`
-6. `ok lets finish up the minimum atleast`
+1. “What edge cases should I check when testing my discussion forms?”
+3. “Help me understand how React state and localStorage work in The Archives, especially when someone posts a discussion or replies.”
+6. “Review my architecture explanation for technical inaccuracies and point out anything that needs stronger evidence.”
 
 I also supplied the original assignment text in full. It requested an existing-system analysis, AI-assisted prototype, verification, deployment, README, and a 5–7 minute video with live QA and webcam.
 
