@@ -1,6 +1,6 @@
 # The Archives
 
-A movie-and-TV discussion proof of concept and companion architecture overview for a study of [Discourse](https://github.com/discourse/discourse).
+The Archives is my movie-and-TV discussion proof of concept, accompanied by an architecture study of [Discourse](https://github.com/discourse/discourse).
 
 ## Features
 
@@ -33,10 +33,10 @@ npm run preview
 
 A prebuilt static copy is included in `docs/` for GitHub Pages. In repository **Settings → Pages**, choose **Deploy from a branch**, **main**, and **/docs**, then Save.
 
-Expected URL after Pages is enabled and its deployment succeeds:
+Live website:
 https://elenimulu789.github.io/The-Archives/
 
-This expected address is not a claim that deployment has already succeeded. Check Pages/Actions and open the URL before submission.
+I confirmed that the deployed website opens. Detailed functional and cross-browser results are tracked separately in the QA checklist.
 
 After future source changes, run `npm run build`, copy the contents of `dist/` into `docs/` without deleting the Markdown documentation, and commit the updated source and static output. The relative Vite base supports the repository subpath. No client-side URL routing is used.
 
@@ -47,8 +47,8 @@ After future source changes, run `npm run build`, copy the contents of `dist/` i
 - [QA checklist and current evidence](docs/qa-checklist.md)
 - [Six-minute recording guide](docs/video-guide.md)
 
-ChatGPT generated setup guidance, the original static page/CSS, and documentation.
-## Submission checklist
+I used ChatGPT for setup guidance, architecture research, generating the initial and functional prototype code, styling, and documentation. The prompt appendix records sample prompts, initial output, and corrections. Build and lint results from the AI-assisted development environment are listed separately from manual browser testing.
+## My final submission checklist
 
 - Confirm the live URL loads.
 - Review the official sources and code.
