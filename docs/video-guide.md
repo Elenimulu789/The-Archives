@@ -1,12 +1,12 @@
 # Six-minute screen-and-webcam recording guide
 
-Keep your face visible throughout. Use your own words; these are talking points, not a script to read verbatim. Open the live site, GitHub, official Discourse README, and browser DevTools before recording.
+My recording target is 5–7 minutes with my screen and webcam visible throughout. These are my presentation cues. Before recording, I will open the live site, GitHub repository, official Discourse README, and browser DevTools.
 
 ## 0:00–2:00 — Architecture and AI audit
 
-Open the site's Architecture & AI audit screen. Explain that Discourse is the analyzed real system and The Archives is a small discussion-subsystem prototype. Walk through Ember, Rails, PostgreSQL, Redis, Sidekiq, and Nginx using the component table. Explain HTTP/JSON frontend/API communication and server-side persistence. Call the monolithic classification your interpretation of the documented structure.
+Open the site's Architecture & AI audit screen. Explain that Discourse is the analyzed real system and The Archives is a small discussion-subsystem prototype. Walk through Ember, Rails, PostgreSQL, Redis, Sidekiq, and Nginx using the component table. Explain HTTP/JSON frontend/API communication and server-side persistence. Describe the monolithic classification as my interpretation of the documented structure.
 
-Show the official README's Built With section. Explain how you distinguished PostgreSQL persistence from Redis caching. Mention the Ruby-version discrepancy between README and INSTALL if useful, without claiming to have run Discourse. Show the unused-import correction in Git history or AI appendix. Then explain your prototype's simpler React → validation → localStorage flow and its single-browser limitation.
+Show the official README's Built With section. Explain the distinction between PostgreSQL persistence and Redis caching. Mention the Ruby-version discrepancy between README and INSTALL if useful, without claiming to have run Discourse. Show the unused-import correction in Git history or AI appendix. Then explain my prototype's simpler React → validation → localStorage flow and its single-browser limitation.
 
 ## 2:00–4:00 — Functionality
 
@@ -14,7 +14,7 @@ Open Community. Create a discussion such as “Which movie has your favorite end
 
 ## 4:00–5:40 — Live QA
 
-Show DevTools Console and Network after a reload. Demonstrate submitting an empty form, then whitespace-only input. Show character limits. Search for nonsense to demonstrate the empty state. Use responsive mode at 1920×1080, 768px, and 390px; check that cards and forms fit. Press Tab to show visible focus and form order. Open the live site in Firefox as well as Chrome and repeat a basic create/reply check. Show the actual QA record; do not claim a check passed if you skipped it.
+Show DevTools Console and Network after a reload. Demonstrate submitting an empty form, then whitespace-only input. Show character limits. Search for nonsense to demonstrate the empty state. Use responsive mode at 1920×1080, 768px, and 390px; check that cards and forms fit. Press Tab to show visible focus and form order. Open the live site in Firefox as well as Chrome and repeat a basic create/reply check. Show my QA record and the results actually observed.
 
 ## 5:40–6:15 — Retrospective
 
