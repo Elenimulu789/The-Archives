@@ -2,7 +2,7 @@
 
 ## Target: Discourse
 
-Working classification: a **monolithic Rails backend with a separate browser frontend and supporting infrastructure**. It also has presentation, application, and data layers. This is an architectural interpretation of the documented arrangement; independent cache/database/worker processes do not establish independently deployable business microservices.
+I classify Discourse as a **monolithic Rails backend with a separate browser frontend and supporting infrastructure**. It also has presentation, application, and data layers. This is an architectural interpretation of the documented arrangement; independent cache/database/worker processes do not establish independently deployable business microservices.
 
 | Component | Role | Evidence |
 |---|---|---|
@@ -29,7 +29,7 @@ The smaller design makes a single subsystem easy to demonstrate and deploy witho
 
 ## Sources and verification status
 
-The assistant consulted these official sources while preparing the analysis. The student should open and compare them before recording. These moving `main` links are not a version-pinned code audit.
+My AI-assisted architecture research uses the official sources below. This is a documentation-based analysis; the links track `main`, so they do not identify a fixed source-code snapshot.
 
 1. https://github.com/discourse/discourse/blob/main/README.md — Built With: Ember, Rails JSON API, PostgreSQL, Redis.
 2. https://github.com/discourse/discourse/blob/main/docs/INSTALL.md — Rails/Sidekiq processes and Nginx configuration.
