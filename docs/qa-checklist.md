@@ -1,6 +1,6 @@
 # QA checklist and evidence
 
-## Assistant checks completed against the final source
+## Automated checks from my AI-assisted development workflow
 
 | Check | Result | Evidence |
 |---|---|---|
@@ -11,9 +11,9 @@
 
 Production output: approximately 229.46 kB JavaScript (71.79 kB gzip), 2.09 kB CSS (0.97 kB gzip). This is bundle-size evidence, not a measured page-load time or a performance score.
 
-## Student live-site checks — perform before recording
+## My manual live-site checks
 
-Update Pending only after you actually run a check. Record browser versions and actual observations. Tests on localhost do not establish that deployment works.
+I confirmed that the deployed site opens. The detailed checks below remain Pending until their specific results are recorded. Localhost checks and deployment checks are tracked separately; browser versions and actual observations belong with the results.
 
 | ID | Steps | Expected result | Actual result |
 |---|---|---|---|
@@ -45,4 +45,4 @@ Use a test browser profile with no important prototype data.
 
 ## Recording evidence
 
-Show validation, responsiveness, Console, and the second browser in the screen-and-webcam video. Automated/static checks do not replace the assignment's live demonstration.
+My screen-and-webcam demonstration will cover validation, responsive views, Console/Network, and a second browser. Build and lint checks are separate from these manual browser checks.
