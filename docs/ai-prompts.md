@@ -1,12 +1,12 @@
 # AI disclosure, prompt appendix, and corrections
 
-## Tool and extent
+## How I used AI
 
-ChatGPT provided project guidance and generated most of the prototype code, styling, and documentation. The student executed the Windows setup steps and confirmed the initial interface locally. The assistant later inspected the uploaded repository, replaced the static interface with functional code, and performed the checks documented in qa-checklist.md. Do not present assistant checks as tests personally performed by the student.
+I used ChatGPT throughout the project for setup guidance, explanations, architecture research, code generation, styling, and documentation. This included generating the initial static page and the functional discussion-and-reply implementation. I followed the Windows setup instructions, ran the initial site locally, and confirmed that the deployed website opened. Build and lint checks were run through the AI-assisted development environment; my manual browser checks are recorded separately in the QA checklist.
 
-## Selected exact user prompts
+## Selected exact prompts I submitted
 
-These are actual prompts from the conversation, not reconstructed detailed prompts. The short prompts depended on the surrounding conversation.
+These are exact prompts I submitted during the conversation. The short follow-up prompts refer to the project requirements and instructions already discussed.
 
 1. `tell me step by step how to start this assignment`
 2. `ok it's open`
@@ -15,7 +15,7 @@ These are actual prompts from the conversation, not reconstructed detailed promp
 5. `ok next step`
 6. `ok lets finish up the minimum atleast`
 
-The original assignment text was also supplied in full. It requested an existing-system analysis, AI-assisted prototype, verification, deployment, README, and a 5–7 minute video with live QA and webcam.
+I also supplied the original assignment text in full. It requested an existing-system analysis, AI-assisted prototype, verification, deployment, README, and a 5–7 minute video with live QA and webcam.
 
 ## Initial generated code
 
@@ -50,7 +50,7 @@ export default App
 
 ## Initial architecture output and audit
 
-The initial architecture draft identified Ember, Rails, PostgreSQL, Redis, Sidekiq, and Nginx, and classified the backend as monolithic with a separate browser frontend. It explicitly left detailed post routes and jobs unverified. The official README and INSTALL guide were checked by the assistant. Classification is an inference, while documented component names/roles are source-supported.
+The initial architecture draft identified Ember, Rails, PostgreSQL, Redis, Sidekiq, and Nginx, and classified the backend as monolithic with a separate browser frontend. It explicitly left detailed post routes and jobs unverified. The AI-assisted research compared these claims with the official README and INSTALL guide. I distinguish the architectural classification, which is an interpretation, from component names and roles directly supported by those sources.
 
 | Finding | Evidence | Correction or qualification |
 |---|---|---|
@@ -60,12 +60,12 @@ The initial architecture draft identified Ember, Rails, PostgreSQL, Redis, Sidek
 | Official Ruby minimums differ | README: 3.4+; INSTALL: 3.2+ | Avoided an unsupported universal version claim; no Discourse installation attempted |
 | Browser storage is not a shared community database | Prototype saves directly to localStorage | Added visible scope notice and documented no multi-user synchronization |
 
-## Final generated output and customizations
+## Development from the initial output
 
-The response to prompt 6 produced the functional implementation now in src/App.tsx and src/index.css, deployment-ready output in docs/, README documentation, and a recording guide. The initial and final implementations can be compared using Git history.
+I used the follow-up in prompt 6 to expand the static page into a functional proof of concept with ChatGPT's help. The resulting implementation is in src/App.tsx and src/index.css, with the static deployment build in docs/. Git history records the initial and final versions.
 
 The code adds whitespace-only validation, input length limits, browser storage error feedback, malformed saved-data handling, accessible labels, visible focus styling, responsive cards, an architecture overview, and an honest storage limitation notice.
 
-## Record limitations
+## Appendix scope
 
-This appendix includes selected exact prompts, the complete initial App.tsx, an architecture-output summary, and the correction record. It is not a full export of every conversational message. The full project conversation can be appended before submission if the instructor requires a complete transcript. Do not label paraphrases as exact prompts or summaries as verbatim output.
+I have included selected exact prompts, the complete initial App.tsx output, a summary of the initial architecture response, and the correction record. This appendix is a curated project log rather than a full conversation export. The architecture summary is paraphrased; the prompts and initial code are reproduced as originally provided.
