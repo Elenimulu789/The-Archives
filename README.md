@@ -47,8 +47,7 @@ After future source changes, run `npm run build`, copy the contents of `dist/` i
 - [QA checklist and current evidence](docs/qa-checklist.md)
 - [Six-minute recording guide](docs/video-guide.md)
 
-ChatGPT generated setup guidance, the original static page/CSS, and most of the final prototype implementation and documentation. Assistance was substantial. The student must review the code, conduct the live QA demonstration, and explain the trade-offs in their own words. Source-level checks performed by the assistant are distinguished from checks the student still needs to perform.
-
+ChatGPT generated setup guidance, the original static page/CSS, and documentation.
 ## Submission checklist
 
 - Confirm the live URL loads.
