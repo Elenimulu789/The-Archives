@@ -46,3 +46,27 @@ Use a test browser profile with no important prototype data.
 ## Recording evidence
 
 My screen-and-webcam demonstration will cover validation, responsive views, Console/Network, and a second browser. Build and lint checks are separate from these manual browser checks.
+
+## Pull request testing record
+
+Complete one record for each pull request tested.
+
+- PR link:
+- Reviewer:
+- Review type: Self-review / Peer review
+- Date:
+- Branch and commit tested:
+- Environment: Localhost / Deployed site
+- Browser and version:
+
+| Check ID | Actual observation | Pass / Fail / Blocked | Screenshot or recording |
+|---|---|---|---|
+| | | | |
+
+### Findings and follow-up
+
+- Problems found:
+- Feedback or changes needed:
+- Retest results:
+
+Only mark a check as passed after performing it. Leave untested checks as Pending. Attach evidence to the pull request and reference the relevant check IDs.
