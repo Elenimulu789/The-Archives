@@ -1,75 +1,54 @@
-# React + TypeScript + Vite
+# The Archives
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A movie-and-TV community prototype built for a software architecture assignment.
 
-Currently, two official plugins are available:
+## Project Description
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This project studies Discourse’s community discussion architecture
+and recreates a small discussion workflow in The Archives.
 
-## React Compiler
+## Current Progress
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React and TypeScript project created with Vite
+- Initial page with two static discussion examples
+- Basic responsive styling
+- Git version control configured
 
-## Expanding the ESLint configuration
+## Planned Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Browse discussions
+- Create a discussion
+- Open a discussion and add replies
+- Save discussions and replies so they survive a refresh
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Run Locally
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+1. Clone the repository:
+   git clone https://github.com/Elenimulu789/The-Archives.git
+2. Enter the project folder:
+   cd The-Archives
+3. Install dependencies:
+   npm install
+4. Start the development server:
+   npm run dev
+5. Open the Local URL printed in the terminal.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Architecture Research
 
-```
+Target system: Discourse
+Source repository: https://github.com/discourse/discourse
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Architectural style, components, and communication boundaries
+will be investigated and documented before implementing data storage.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## AI Disclosure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+ChatGPT assisted with project planning, setup instructions.
 
-```
+Exact prompts, initial outputs, verification findings, and
+customizations will be recorded in the docs folder.
+
+## Testing Status
+
+The initial page has been viewed locally.
+The full assignment QA checklist has yet been completed.
