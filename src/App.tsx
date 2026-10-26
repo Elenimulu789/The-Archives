@@ -19,6 +19,101 @@ function load(): { topics: Topic[]; warning: string } {
     return { topics: samples, warning: 'Saved data could not be loaded. Sample discussions are shown. Posting will attempt to save a new local copy.' }
   }
 }
+
+type WatchItem = {
+  id: string
+  title: string
+  type: 'Movie' | 'Show'
+}
+
+const watchlistKey = 'the-archives-watchlist-v1'
+
+function Watchlist() {
+  const [items, setItems] = useState<WatchItem[]>(() => {
+    try {
+      const saved = localStorage.getItem(watchlistKey)
+      if (!saved) return []
+      const parsed: unknown = JSON.parse(saved)
+      if (!Array.isArray(parsed) || !parsed.every(
+        (item: unknown) =>
+          typeof item === 'object' && item !== null &&
+          'id' in item && typeof item.id === 'string' &&
+          'title' in item && typeof item.title === 'string' &&
+          'type' in item && (item.type === 'Movie' || item.type === 'Show')
+      )) return []
+      return parsed as WatchItem[]
+    } catch {
+      return []
+    }
+  })
+
+  const [title, setTitle] = useState('')
+  const [type, setType] = useState<'Movie' | 'Show'>('Movie')
+  const [message, setMessage] = useState('')
+
+  function save(next: WatchItem[]) {
+    try {
+      localStorage.setItem(watchlistKey, JSON.stringify(next))
+      setItems(next)
+      setMessage('Watchlist saved!')
+      return true
+    } catch {
+      setMessage('Could not save. Check browser storage settings.')
+      return false
+    }
+  }
+
+  function add(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const cleaned = title.trim()
+    if (!cleaned) {
+      setMessage('Enter a movie or show title.')
+      return
+    }
+    if (items.some(item => item.title.toLowerCase() === cleaned.toLowerCase())) {
+      setMessage('This title is already on your watchlist.')
+      return
+    }
+    if (save([...items, { id: crypto.randomUUID(), title: cleaned, type }])) {
+      setTitle('')
+    }
+  }
+
+  return <section aria-labelledby="watchlist-heading">
+    <h2 id="watchlist-heading">My Watchlist</h2>
+    <p>Keep track of movies and shows you want to watch.</p>
+    <p>Saved locally in this browser.</p>
+
+    <form onSubmit={add}>
+      <label htmlFor="watch-title">Movie or show title</label>
+      <input id="watch-title" maxLength={120} required
+        value={title} onChange={e => setTitle(e.target.value)}
+        placeholder="Enter a title" />
+
+      <label htmlFor="watch-type">Type</label>
+      <select id="watch-type" value={type}
+        onChange={e => setType(e.target.value as 'Movie' | 'Show')}>
+        <option value="Movie">Movie</option>
+        <option value="Show">Show</option>
+      </select>
+
+      <button type="submit">Add to Watchlist</button>
+    </form>
+
+    <p role="status">{message}</p>
+    <h3>Saved Titles ({items.length})</h3>
+    {items.length === 0 && <p>Your watchlist is empty. Add your first title!</p>}
+
+    {items.map(item => <article key={item.id}>
+      <span className="badge">{item.type}</span>
+      <h3>{item.title}</h3>
+      <button onClick={() => save(items.filter(saved => saved.id !== item.id))}>
+        Remove from Watchlist
+      </button>
+    </article>)}
+  </section>
+}
+
 function App() {
   const [initial] = useState(load)
   const [topics, setTopics] = useState(initial.topics)
@@ -62,12 +157,13 @@ function App() {
     <header><p className="eyebrow">MOVIES · SHOWS · CONVERSATION</p><h1>The Archives</h1><p>Your next favorite conversation starts here.</p></header>
     <nav aria-label="Main navigation">
       <button aria-pressed={page === 'community'} onClick={() => { setPage('community'); setError('') }}>Community</button>
+      <button aria-pressed={page === 'watchlist'} onClick={() => { setPage('watchlist'); setSelected(null); setError('') }}>My Watchlist</button>
       <button aria-pressed={page === 'architecture'} onClick={() => { setPage('architecture'); setError('') }}>Architecture & AI audit</button>
     </nav>
     <p className="note">Classroom prototype · Discussions stay in this browser. No accounts, server, or shared community database.</p>
     <p role="status">{notice}</p>
     {error && <p role="alert" className="error">{error}</p>}
-    {page === 'architecture' ? <section aria-labelledby="architecture-heading">
+    {page === 'watchlist' ? <Watchlist /> : page === 'architecture' ? <section aria-labelledby="architecture-heading">
       <h2 id="architecture-heading">From Discourse to a focused prototype</h2>
       <article><h3>1. Existing system: Discourse</h3><p>Working classification: a monolithic Rails backend with a browser frontend and supporting services. This is an interpretation of the documented structure. Separate infrastructure processes do not automatically make an application microservices.</p>
         <div className="table-wrap"><table><caption>Discourse component map</caption><thead><tr><th>Component</th><th>Role</th></tr></thead><tbody>
