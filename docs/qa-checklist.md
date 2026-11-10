@@ -46,3 +46,17 @@ Use a test browser profile with no important prototype data.
 ## Recording evidence
 
 My screen-and-webcam demonstration will cover validation, responsive views, Console/Network, and a second browser. Build and lint checks are separate from these manual browser checks.
+
+## Discussion bookmarks
+
+Bookmarks stay in the current browser. They mark discussion threads, while the
+watchlist tracks movie and show titles.
+
+1. Open a discussion and toggle **Bookmark discussion**. Return to the list and
+   turn on **Show bookmarks only**. Only bookmarked discussions should appear.
+2. Reload, enable the filter again, and verify the bookmark is still present.
+   Search and category filters should narrow the bookmarked results.
+3. Remove the bookmark from the detail page and return to the list. Confirm the
+   result disappears and remains removed after reload.
+4. With the bookmark filter active, post a discussion. The list should reset
+   its filters so the new discussion is visible.

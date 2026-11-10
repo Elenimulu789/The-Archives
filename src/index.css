@@ -11,7 +11,7 @@ nav { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0; }
 button, input, select, textarea { font: inherit; border-radius: 8px; }
 button { background: #d2bdff; color: #201338; border: 1px solid transparent; padding: 10px 16px; cursor: pointer; font-weight: 650; white-space: normal; }
 button:hover { background: #e5d9ff; }
-nav button[aria-pressed="false"] { background: #272337; color: #e3daff; border-color: #665383; }
+button[aria-pressed="false"] { background: #272337; color: #e3daff; border-color: #665383; }
 :focus-visible { outline: 3px solid #f7cd76; outline-offset: 4px; }
 article, form { padding: 24px; margin: 18px 0; background: #1e1e2a; border: 1px solid #414155; border-radius: 12px; }
 article h3 { margin: 10px 0; }
