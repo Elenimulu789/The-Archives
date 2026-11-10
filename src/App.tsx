@@ -2,7 +2,7 @@ import { useState } from 'react'
 import type { FormEvent } from 'react'
 
 type Reply = { id: string; body: string }
-type Topic = { id: string; title: string; category: string; body: string; replies: Reply[] }
+type Topic = { id: string; title: string; category: string; body: string; replies: Reply[]; saved?: boolean }
 const KEY = 'the-archives-discussions-v1'
 const samples: Topic[] = [
   { id: 'movie', title: 'What movie could you watch over and over?', category: 'Movies', body: 'Share your favorite comfort movie and tell us why.', replies: [] },
@@ -27,13 +27,19 @@ function App() {
   const [selected, setSelected] = useState<string | null>(null)
   const [search, setSearch] = useState('')
   const [filter, setFilter] = useState('All')
+  const [savedOnly, setSavedOnly] = useState(false)
   const [title, setTitle] = useState('')
   const [category, setCategory] = useState('Movies')
   const [body, setBody] = useState('')
   const [reply, setReply] = useState('')
   const [error, setError] = useState('')
   const active = topics.find(t => t.id === selected)
-  const visible = topics.filter(t => (filter === 'All' || t.category === filter) && `${t.title} ${t.body}`.toLowerCase().includes(search.trim().toLowerCase()))
+  const query = search.trim().toLowerCase()
+  const visible = topics.filter(topic =>
+    (!savedOnly || topic.saved === true) &&
+    (filter === 'All' || topic.category === filter) &&
+    `${topic.title} ${topic.body}`.toLowerCase().includes(query)
+  )
   function save(next: Topic[], message: string) {
     try {
       localStorage.setItem(KEY, JSON.stringify(next))
@@ -49,7 +55,12 @@ function App() {
     if (!title.trim() || !body.trim()) { setError('Enter a title and message. Spaces alone are not accepted.'); return }
     if (title.trim().length > 120 || body.trim().length > 2000) { setError('Use at most 120 characters for the title and 2,000 for the message.'); return }
     const topic: Topic = { id: crypto.randomUUID(), title: title.trim(), category, body: body.trim(), replies: [] }
-    if (save([topic, ...topics], 'Discussion saved in this browser.')) { setTitle(''); setBody(''); setSearch(''); setFilter('All') }
+    if (save([topic, ...topics], 'Discussion saved in this browser.')) { setTitle(''); setBody(''); setSearch(''); setFilter('All'); setSavedOnly(false) }
+  }
+  function toggleSaved(topic: Topic) {
+    const saved = topic.saved !== true
+    const next = topics.map(item => item.id === topic.id ? { ...item, saved } : item)
+    save(next, saved ? 'Discussion bookmarked in this browser.' : 'Bookmark removed.')
   }
   function addReply(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -80,7 +91,9 @@ function App() {
       <article><h3>3. AI verification and customization</h3><p>ChatGPT generated setup instructions, code, and documentation. Official documentation supports the frontend, API, database, and cache roles. The installation guide names Rails, Sidekiq, and Nginx processes. The architectural classification is an interpretation.</p><p>A concrete starter issue: unused imports remained in App.tsx, including a state hook and logo assets. These were removed. Forms, whitespace validation, bounded inputs, replies, search, storage handling, and responsive styles were added.</p><p>Build, lint, and browser results are recorded separately. This screen does not certify that QA has passed.</p></article>
     </section> : active ? <section aria-labelledby="topic-heading">
       <button onClick={() => { setSelected(null); setReply(''); setError('') }}>← All discussions</button>
-      <article><span className="badge">{active.category}</span><h2 id="topic-heading">{active.title}</h2><p className="user-text">{active.body}</p></article>
+      <article><span className="badge">{active.category}</span><h2 id="topic-heading">{active.title}</h2><p className="user-text">{active.body}</p>
+        <button type="button" aria-pressed={active.saved === true} onClick={() => toggleSaved(active)}>Bookmark discussion</button>
+      </article>
       <h3>Replies ({active.replies.length})</h3>
       {active.replies.length === 0 && <p>No replies yet. Start the conversation.</p>}
       {active.replies.map(r => <article key={r.id}><p className="user-text">{r.body}</p></article>)}
@@ -93,8 +106,9 @@ function App() {
       </form></section>
       <section aria-labelledby="discussions-heading"><h2 id="discussions-heading">Recent discussions</h2>
         <div className="filters"><div><label htmlFor="search">Search discussions</label><input id="search" type="search" maxLength={200} value={search} onChange={e => setSearch(e.target.value)} /></div><div><label htmlFor="filter">Filter category</label><select id="filter" value={filter} onChange={e => setFilter(e.target.value)}><option>All</option><option>Movies</option><option>Shows</option></select></div></div>
+        <button type="button" aria-pressed={savedOnly} onClick={() => setSavedOnly(!savedOnly)}>Show bookmarks only</button>
         <p>{visible.length} discussion{visible.length === 1 ? '' : 's'} found</p>
-        {visible.length === 0 && <p>No discussions match. Try another search or category.</p>}
+        {visible.length === 0 && <p>{savedOnly ? 'No bookmarks match. Change the filters or bookmark a discussion from its detail page.' : 'No discussions match. Try another search or category.'}</p>}
         {visible.map(t => <article key={t.id}><span className="badge">{t.category}</span><h3>{t.title}</h3><p className="user-text">{t.body}</p><button onClick={() => { setSelected(t.id); setError(''); setNotice('') }}>Open discussion ({t.replies.length} replies)<span className="sr-only">: {t.title}</span></button></article>)}
       </section>
     </>}
