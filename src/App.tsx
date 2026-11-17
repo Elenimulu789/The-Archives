@@ -98,6 +98,12 @@ function Watchlist() {
 
   function resetWatchlist() {
     if (!window.confirm('Clear the saved watchlist from this browser?')) return
+    const latest = loadWatchlist()
+    if (latest.problem !== 'invalid') {
+      setWatchlist(latest)
+      setMessage('')
+      return
+    }
     try {
       localStorage.removeItem(watchlistKey)
       setWatchlist({ items: [] })
