@@ -28,24 +28,41 @@ type WatchItem = {
 
 const watchlistKey = 'the-archives-watchlist-v1'
 
-function Watchlist() {
-  const [items, setItems] = useState<WatchItem[]>(() => {
-    try {
-      const saved = localStorage.getItem(watchlistKey)
-      if (!saved) return []
-      const parsed: unknown = JSON.parse(saved)
-      if (!Array.isArray(parsed) || !parsed.every(
-        (item: unknown) =>
-          typeof item === 'object' && item !== null &&
-          'id' in item && typeof item.id === 'string' &&
-          'title' in item && typeof item.title === 'string' &&
-          'type' in item && (item.type === 'Movie' || item.type === 'Show')
-      )) return []
-      return parsed as WatchItem[]
-    } catch {
-      return []
+type WatchlistLoad =
+  | { items: WatchItem[]; problem?: never }
+  | { items: []; problem: 'unavailable' | 'invalid' }
+
+function loadWatchlist(): WatchlistLoad {
+  let saved: string | null
+  try {
+    saved = localStorage.getItem(watchlistKey)
+  } catch {
+    return { items: [], problem: 'unavailable' }
+  }
+
+  if (saved === null) return { items: [] }
+
+  try {
+    const parsed: unknown = JSON.parse(saved)
+    if (Array.isArray(parsed) && parsed.every(
+      (item: unknown) =>
+        typeof item === 'object' && item !== null &&
+        'id' in item && typeof item.id === 'string' &&
+        'title' in item && typeof item.title === 'string' &&
+        'type' in item && (item.type === 'Movie' || item.type === 'Show')
+    )) {
+      return { items: parsed as WatchItem[] }
     }
-  })
+  } catch {
+    return { items: [], problem: 'invalid' }
+  }
+
+  return { items: [], problem: 'invalid' }
+}
+
+function Watchlist() {
+  const [watchlist, setWatchlist] = useState(loadWatchlist)
+  const { items, problem } = watchlist
 
   const [title, setTitle] = useState('')
   const [type, setType] = useState<'Movie' | 'Show'>('Movie')
@@ -54,7 +71,7 @@ function Watchlist() {
   function save(next: WatchItem[]) {
     try {
       localStorage.setItem(watchlistKey, JSON.stringify(next))
-      setItems(next)
+      setWatchlist({ items: next })
       setMessage('Watchlist saved!')
       return true
     } catch {
@@ -77,6 +94,30 @@ function Watchlist() {
     if (save([...items, { id: crypto.randomUUID(), title: cleaned, type }])) {
       setTitle('')
     }
+  }
+
+  function resetWatchlist() {
+    if (!window.confirm('Clear the saved watchlist from this browser?')) return
+    try {
+      localStorage.removeItem(watchlistKey)
+      setWatchlist({ items: [] })
+      setMessage('Watchlist cleared.')
+    } catch {
+      setMessage('Could not clear the watchlist. Check browser storage settings.')
+    }
+  }
+
+  if (problem) {
+    return <section aria-labelledby="watchlist-heading">
+      <h2 id="watchlist-heading">My Watchlist</h2>
+      {problem === 'unavailable'
+        ? <p role="alert">Browser storage is unavailable. Check your browser settings and reload to try again.</p>
+        : <>
+          <p role="alert">The saved watchlist could not be read. You can clear it to start a new list.</p>
+          <button type="button" onClick={resetWatchlist}>Clear saved watchlist</button>
+        </>}
+      <p role="status">{message}</p>
+    </section>
   }
 
   return <section aria-labelledby="watchlist-heading">

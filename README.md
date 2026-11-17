@@ -6,6 +6,8 @@ The Archives is my movie-and-TV discussion proof of concept, accompanied by an a
 
 Create discussions, filter Movies/Shows, search titles and messages, open discussions, and post replies. Input is bounded and validated, including whitespace-only input. Data is saved to browser localStorage and survives refresh. Corrupt or unavailable storage produces feedback.
 
+**Watchlist storage:** If the saved watchlist cannot be read, the app pauses edits. Invalid data can be cleared after confirmation. If browser storage is unavailable, restore access and reload. Clearing the watchlist leaves saved discussions intact.
+
 **Scope:** a single-browser subsystem simulation, not a deployed multi-user community. No authentication, backend API, database server, moderation, or cross-device synchronization. Local data is origin-specific and can be removed by clearing browser storage. The prototype does not connect to Discourse or reuse its implementation.
 
 The **Architecture & AI audit** navigation button presents the target architecture, this prototype's smaller design, and AI verification findings. It can be used as the visual aid in the required video.
