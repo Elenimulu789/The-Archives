@@ -70,8 +70,9 @@ function Watchlist() {
       setMessage('Enter a movie or show title.')
       return
     }
-    if (items.some(item => item.title.toLowerCase() === cleaned.toLowerCase())) {
-      setMessage('This title is already on your watchlist.')
+    const normalizedTitle = cleaned.toLowerCase()
+    if (items.some(item => item.type === type && item.title.trim().toLowerCase() === normalizedTitle)) {
+      setMessage(`This title is already on your watchlist as a ${type.toLowerCase()}.`)
       return
     }
     if (save([...items, { id: crypto.randomUUID(), title: cleaned, type }])) {
