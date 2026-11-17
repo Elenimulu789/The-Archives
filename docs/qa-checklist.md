@@ -46,3 +46,9 @@ Use a test browser profile with no important prototype data.
 ## Recording evidence
 
 My screen-and-webcam demonstration will cover validation, responsive views, Console/Network, and a second browser. Build and lint checks are separate from these manual browser checks.
+
+## Watchlist title and type
+
+1. Save a Movie and a Show with the same title. Both cards should appear with their own type.
+2. Try saving that title again under the same type, changing capitalization or adding spaces. The duplicate should be rejected.
+3. Reload and open My Watchlist. Remove one of the two entries and verify the other remains after another reload.
